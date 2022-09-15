@@ -1,10 +1,20 @@
-const getal = Number(prompt("Geef uw eindgetal in."));
-let priemGetal = "";
-let x = 1;
+/*
+Schrijf een programma die alle priemgetallen in een rij afdrukt. 
+Voorbeeld:  Vraag een eindgetal aan de gebruiker: 
+Alle getallen gelijk aan en lager dan het eindgetal dienen te worden getest.
+  Zijn ze een priemgetal of niet. 
+  Een priemgetal is enkel deelbaar door 1 en zichzelf.
+*/
+let eindGetal = Number(prompt("Geef een eindgetal in:"));
 
-for(x;x <= getal;x++) {
-    if(x/2==0) {
-    priemGetal = priemGetal + x;
-    console.log(priemGetal);
+for(let i=1;i<=eindGetal;i++){
+    var count=0;
+    for(let x=1;x<=i;x++){
+        if(i%x===0){
+            count++
+        }
+    }
+    if(count == 2){
+        console.log(i);
     }
 }
