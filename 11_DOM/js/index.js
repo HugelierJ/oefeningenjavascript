@@ -30,15 +30,29 @@
 // document.write("\t\tHallo\nworld\n");
 // document.write("\"Hallo iedereen welkom.\"\n")
 // document.write('Smiley face: \&#128515;\n')//Emoji's werken ook alleen maar als de <pre> tags rond het javascript script bestand staan.
-let cursisten = ["Tom","Tim","Bart","Els"]
+// let cursisten = ["Tom","Tim","Bart","Els"]
+//
+// document.body.onload = addList;
+// function addList(){
+//     var newUl = document.createElement("ul");//hier maak je een <ul>
+//     document.body.appendChild(newUl);//hier hang je de <ul> vast aan de body tag anders zweeft hij in het niets rond.
+//     for(let item in cursisten){//hier ga je zolang door de loop totdat hij alle elementen is afgelopen.
+//         var newLi = document.createElement("li");//hier creëer je elke keer een nieuwe <li>
+//         newUl.appendChild(newLi);//hier zorg je dat <li> vast word gehangen aan je <ul>
+//         newLi.innerHTML += cursisten[item];//hier vul je de <li> elke keer op als hij door de loop gaat.
+//     }
+// }
 
-document.body.onload = addList;
-function addList(){
-    var newUl = document.createElement("ul");//hier maak je een <ul>
-    document.body.appendChild(newUl);//hier hang je de <ul> vast aan de body tag anders zweeft hij in het niets rond.
-    for(let item in cursisten){//hier ga je zolang door de loop totdat hij alle elementen is afgelopen.
-        var newLi = document.createElement("li");//hier creëer je elke keer een nieuwe <li>
-        newUl.appendChild(newLi);//hier zorg je dat <li> vast word gehangen aan je <ul>
-        newLi.innerHTML += cursisten[item];//hier vul je de <li> elke keer op als hij door de loop gaat.
-    }
+
+
+let alleBMW = document.querySelectorAll(".bmw")
+// let result = document.getElementById("resultArea");
+let result = document.querySelector("#resultArea")
+
+document.getElementById("resultArea").style.color="blue";
+document.getElementById("resultArea").style.fontFamily = "Arial";
+document.getElementById("resultArea").style.fontSize ="larger";
+
+for (let auto of alleBMW){
+    result.innerHTML += `${auto.textContent}\n`
 }
