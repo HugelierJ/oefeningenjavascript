@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AJAX</title>
+</head>
+<body>
+<p id="demo">AJAX zal hier tekst wijzigen</p>
+<button type="button" onclick="loadDoc()">Wijzig inhoud</button>
+
+<script>
+    function loadDoc(){
+        var xhttp = new XMLHttpRequest();//stelt ons in staat voor een request te maken. en maak ik een object variabel
+        xhttp.open("GET", "test.txt",false);//hiermaa ga je naar het bestand. ga het pakken geef me de url.
+        xhttp.send();//voor het antwoord terug te krijgen.
+        document.querySelector("#demo").innerHTML = xhttp.responseText;//je moet responseText erbij zetten voor het antwoord op te vangen.
+    }
+
+
+</script>
+</body>
+</html>

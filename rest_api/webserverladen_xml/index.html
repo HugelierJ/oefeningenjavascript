@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AJAX</title>
+</head>
+<body>
+<p id="demo">AJAX zal hier tekst wijzigen</p>
+<button type="button" onclick="loadDoc()">Wijzig inhoud</button>
+
+<script>
+    function loadDoc(){
+        let xmlDoc,title,y,x;
+        let xhttp = new XMLHttpRequest();//stelt ons in staat voor een request te maken. en maak ik een object variabel
+        xhttp.onreadystatechange = function (){
+            if (this.readyState == 4 && this.status == 200){//als de 2 response juist zijn is het perfect en klaar om uit te lezen.
+                xmlDoc = this.responseXML;//this betekent xhttp.onreadystatechange. sommige servers controleren niet op 3 = best maar 2 gebruiken.
+                title = "";
+                x   = xmlDoc.getElementsByTagName("title");
+                y   = xmlDoc.getElementsByTagName("genre");
+                for (let i = 0;i<x.length ; i++){
+                    title = title + x[i].childNodes[0].nodeValue + "&nbsp;" + y[i].childNodes[0].nodeValue + "<br>";
+                }
+                document.querySelector("#demo").innerHTML = title;
+            }
+        };
+        xhttp.open("GET","books.xml",true);
+        xhttp.send();
+    }
+
+
+</script>
+</body>
+</html>
