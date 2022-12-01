@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AJAX</title>
+</head>
+<body>
+<div id="overzicht">
+
+</div>
+<!--<button type="button" onclick="loadDoc()">Wijzig inhoud</button>-->
+
+<script>
+    // function jsonLink(){//xhr is een algemene benaming voor een request.
+    //     const xhr = new XMLHttpRequest();
+    //     xhr.onload = loadDoc;
+    //     xhr.open("GET","https://www.dnd5eapi.co/api/monsters",true);//true = asynchroon laden   &  false = synchroon laden
+    //     //null wordt verstuurd bij de request (vraag naar de server), omdat de status van de server en het json bestand op dat ogenblik nog NIET is gekend. Vanaf nu altijd een null inzetten.
+    //     xhr.send(null);
+    // }
+    //
+    // function loadDoc(){
+    //     const overzicht = document.querySelector("#overzicht");
+    //     let ul = document.createElement("ul");
+    //     let monsters = JSON.parse(this.responseText);
+    //     for (let i = 0 ;i < monsters["count"] ; i++){
+    //         let li = document.createElement("li");
+    //         let a = document.createElement("a");
+    //         if (monsters["results"][i]["name"] !== ""){//kijken of de value niet blank is.
+    //             a.href = "https://www.dnd5eapi.co"+monsters["results"][i]["url"];
+    //             li.innerHTML = monsters["results"][i]["name"];
+    //             a.appendChild(li)
+    //             ul.appendChild(a)
+    //         }
+    //     }
+    //     overzicht.appendChild(ul);
+    // }
+
+    function jsonLink(){//xhr is een algemene benaming voor een request.
+        const xhr = new XMLHttpRequest();
+        xhr.onload = loadDoc;
+        xhr.open("GET","https://www.dnd5eapi.co/api/monsters",true);//true = asynchroon laden   &  false = synchroon laden
+        //null wordt verstuurd bij de request (vraag naar de server), omdat de status van de server en het json bestand op dat ogenblik nog NIET is gekend. Vanaf nu altijd een null inzetten.
+        xhr.send(null);
+    }
+
+    function loadDoc(){
+        const overzicht = document.querySelector("#overzicht");
+        var ul = document.createElement("ul");
+        var monsters = JSON.parse(this.responseText);
+        for (let i = 0 ;i < monsters["count"] ; i++){
+            var li = document.createElement("li");
+            var a = document.createElement("a");
+            var p;
+            if (monsters["results"][i]["name"] !== ""){//kijken of de value niet blank is.
+                var monsterName = monsters["results"][i]["name"]
+                const http = new XMLHttpRequest();
+                http.open("GET",`'https://www.dnd5eapi.co'${monsters["results"][i]["url"]}`,true);
+                var stats = JSON.parse(this.responseText);
+                http.send(null);
+                a.href = "https://www.dnd5eapi.co"+monsters["results"][i]["url"];
+                li.innerHTML = monsters["results"][i]["name"] + " " + stats[i]["intelligence"];
+                a.appendChild(li)
+                ul.appendChild(a)
+            }
+        }
+        overzicht.appendChild(ul);
+    }
+    window.addEventListener("load", jsonLink);
+</script>
+</body>
+</html>

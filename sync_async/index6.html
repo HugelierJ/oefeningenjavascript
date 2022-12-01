@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+    async function getData(){
+        const response = await
+            fetch("https://restcountries.com/v2/all")
+            const data = response.json()
+        return data
+    }
+    getData().then(data => console.log(data)).catch(err=>console.log('errors:' + err.message));
+</script>
+<!--een await in een async function zorgt ervoor dat we een promise op es6 niveau kunnen gebruiken maar dat we toch da zaken synchroon kunnen uitvoeren. -->
+<!-- await wordt bijna nooit gebruikt  met await krijg je bijna nooit timeout errors. -->
+</body>
+</html>

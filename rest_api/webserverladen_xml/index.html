@@ -8,30 +8,34 @@
     <title>AJAX</title>
 </head>
 <body>
-<p id="demo">AJAX zal hier tekst wijzigen</p>
-<button type="button" onclick="loadDoc()">Wijzig inhoud</button>
+<div id="overzicht">
+
+</div>
+<!--<button type="button" onclick="loadDoc()">Wijzig inhoud</button>-->
 
 <script>
-    function loadDoc(){
-        let xmlDoc,title,y,x;
-        let xhttp = new XMLHttpRequest();//stelt ons in staat voor een request te maken. en maak ik een object variabel
-        xhttp.onreadystatechange = function (){
-            if (this.readyState == 4 && this.status == 200){//als de 2 response juist zijn is het perfect en klaar om uit te lezen.
-                xmlDoc = this.responseXML;//this betekent xhttp.onreadystatechange. sommige servers controleren niet op 3 = best maar 2 gebruiken.
-                title = "";
-                x   = xmlDoc.getElementsByTagName("title");
-                y   = xmlDoc.getElementsByTagName("genre");
-                for (let i = 0;i<x.length ; i++){
-                    title = title + x[i].childNodes[0].nodeValue + "&nbsp;" + y[i].childNodes[0].nodeValue + "<br>";
-                }
-                document.querySelector("#demo").innerHTML = title;
-            }
-        };
-        xhttp.open("GET","books.xml",true);
-        xhttp.send();
+    function jsonLink(){//xhr is een algemene benaming voor een request.
+        const xhr = new XMLHttpRequest();
+        xhr.onload = loadDoc;
+        xhr.open("GET","https://www.dnd5eapi.co/api/monsters",true);//true = asynchroon laden   &  false = synchroon laden
+        //null wordt verstuurd bij de request (vraag naar de server), omdat de status van de server en het json bestand op dat ogenblik nog NIET is gekend. Vanaf nu altijd een null inzetten.
+        xhr.send(null);
     }
 
-
+    function loadDoc(){
+        const overzicht = document.querySelector("#overzicht");
+        let ul = document.createElement("ul");
+        let monsters = JSON.parse(this.responseText);
+        for (let i = 0 ;i < monsters["count"] ; i++){
+            let li = document.createElement("li");
+            if (monsters["results"][i]["name"] !== ""){//kijken of de value niet blank is.
+                li.innerHTML = monsters["results"][i]["name"];
+                ul.appendChild(li)
+            }
+        }
+        overzicht.appendChild(ul);
+    }
+    window.addEventListener("load", jsonLink);
 </script>
 </body>
 </html>

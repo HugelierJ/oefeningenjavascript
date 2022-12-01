@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Javascript synchronous</title>
+</head>
+<body>
+<button>click</button>
+
+<script>
+    const button = document.querySelector("button");
+    //ES5 Javascript
+    // button.addEventListener("click",function(){
+    //
+    // })
+    //ES6 Javascript
+    button.addEventListener("click",()=>{
+        let count = 0;
+        for (let i = 0 ; i < 5000000000 ; i++){
+            count++
+        }
+        console.log(count);
+        const text = document.createElement("h1");
+        text.innerHTML = "Sequentieel laden";
+        document.body.appendChild(text);
+    });
+
+</script>
+</body>
+</html>

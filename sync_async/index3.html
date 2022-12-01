@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Javascript Asynchronous</title>
+</head>
+<body>
+<p>OPLOSSING om synchrone timeouts te vermijden is om asynchroon te coderen.</p>
+<h1>OPLOSSING HIERVOOR: CALLBACKS (ES5) of PROMISES (ES6)</h1>
+<!--/*-->
+<!--function myFunction(){-->
+<!--//code-->
+<!--callback()-->
+<!--}-->
+<!--*/-->
+<script>
+    // function callbackFunction(){
+    //     console.log(test)
+    // }
+    // //als je een functie heroproept is dat een callbackfunction
+    // button.addEventListener("click",callbackFunction)
+    function showImage(url,type,callback){
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET",url);
+        xhr.responseType = type;
+        xhr.onload=function (){
+            callback(xhr.response);
+        }
+        xhr.send()
+    }
+    function createImage(blob){
+        const objectUrl = URL.createObjectURL(blob);
+        const imageElement = document.createElement("img");
+        imageElement.src = objectUrl;
+        document.body.appendChild(imageElement)
+    }
+    showImage("kip.jpg","blob",createImage)
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<p id="p1" draggable="true">This element is draggable.</p>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- zorgen dat het axios script eerst geladen wordt anders kan je het niet gebruiken -->
+
+<!--<script>-->
+<!--    axios.get("https://restcountries.com/v2/all")-->
+<!--    .then(response => {-->
+<!--        console.log(response.data);//hiermee heb je alle data die op de site is vast in een array-->
+<!--        console.log(response.status);//200 is perfect, 400 niet gevonden, 500 server problemen.-->
+<!--        console.log(response.statusText);//zelfde als status maar hiermee krijg je direct het woord. 200 = ok, 404 = page not found.-->
+<!--        console.log(response.headers);//hiermee vind je de contenttype, dit is wat hackers proberen te weten te komen.-->
+<!--        console.log(response.config);//hiermee neem je al het mogelijke van de website. als de website een xsrf token weergeeft dan is deze aan server-side beveiligd.-->
+<!--    })-->
+<!--</script>-->
+
+<script>
+    axios.all([
+        axios.get("https://restcountries.com/v2/all"),
+        axios.get("https://restcountries.com/v3/all")
+    ]).then(responseArray =>{
+        // Onderstaande wordt pas uitgevoerd NADAT de requests (GET) volledig werd uitgevoerd.
+        console.log("Data", responseArray[0].data);
+        console.log("Data", responseArray[1].data);
+    }).catch(thrown =>{
+        if(axios.isCancel(thrown)){
+            console.log("Request cancelled", thrown.message);
+        }else{
+            // handle the error
+        }
+    })
+</script>
+<script>
+    function dragstart_handler(ev) {
+        // Add the target element's id to the data transfer object
+        ev.dataTransfer.setData("text/plain", ev.target.id);
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+        // Get the element by id
+        const element = document.getElementById("p1");
+        // Add the ondragstart event listener
+        element.addEventListener("dragstart", dragstart_handler);
+    });
+</script>
+</body>
+</html>
